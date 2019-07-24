@@ -15,13 +15,14 @@ var clui = require('clui'),
 runProgram()
 
 async function runProgram() {
+  //CLI header
   clear();
   console.log(
     chalk.red(
       figlet.textSync('churn calculator', { horizontalLayout: 'full' })
     )
   );
-
+//CLI input options
   program
     .version('0.0.1')
     .description("CLI app for git churn calculation")
