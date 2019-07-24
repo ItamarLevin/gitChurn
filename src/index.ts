@@ -29,6 +29,7 @@ async function runProgram() {
     .option('-u, --perAuthor [repositoryPath]', 'the top 10 contributors with the highest churn in the repository.')
     .parse(process.argv);
   if (program.perFile) {
+    const git = simplegit(program.perFile)
     if ((fs.existsSync(program.perFile)) && (await (simplegit(program.perFile).checkIsRepo()))) {
       getStatsPerFile(program.perFile, printToConsole)
     } else {
@@ -46,17 +47,6 @@ async function runProgram() {
   }
 }
 
-function printToConsole(statList: Array<any>) {
-  if (statList[0] instanceof AuthorStat) {
-
-    statList.forEach((stat, index) => {
-    })
-  } else {
-
-    statList.forEach((stat, index) => {
-    })
-  }
-}
 
 function getStatsPerAuthor(filePath: string, callback: Function) {
   let authorStatList: Array<AuthorStat> = new Array;
@@ -150,4 +140,54 @@ class AuthorStat {
 }
 
 
+
+
+function printToConsole(statList: Array<any>) {
+  if (statList[0] instanceof AuthorStat) {
+    var headers = new Line()
+      .padding(2)
+      .column('Number', 20, [clc.cyan])
+      .column('Author', 20, [clc.cyan])
+      .column('Churn', 20, [clc.cyan])
+      .column('Added', 20, [clc.cyan])
+      .column('deleted', 20, [clc.cyan])
+      .fill()
+      .output();
+
+    statList.forEach((stat, index) => {
+      var line = new Line()
+        .padding(2)
+        .column((index + 1).toString(), 20)
+        .column(stat.AuthorName, 20)
+        .column((stat.added + stat.deleted).toString(), 20)
+        .column(stat.added.toString(), 20)
+        .column(stat.deleted.toString(), 20)
+        .fill()
+        .output()
+    })
+  } else {
+    var headers = new Line()
+      .padding(2)
+      .column('Number', 20, [clc.cyan])
+      .column('File', 20, [clc.cyan])
+      .column('Churn', 20, [clc.cyan])
+      .column('Added', 20, [clc.cyan])
+      .column('deleted', 20, [clc.cyan])
+      .fill()
+      .output();
+
+    statList.forEach((stat, index) => {
+      var line = new Line()
+        .padding(2)
+        .column((index + 1).toString(), 20)
+        .column(stat.fileName, 20)
+        .column(stat.churn.toString(), 20)
+        .column(stat.added.toString(), 20)
+        .column(stat.deleted.toString(), 20)
+        .fill()
+        .output()
+    })
+  }
+
+}
 
