@@ -1,0 +1,37 @@
+{
+  "name": "gitchurn",
+  "version": "1.0.0",
+  "description": "CLI for churn calculation",
+  "main": "./lib/index.js",
+  "bin": {
+    "churn": "./lib/index.js"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
+    "create": "npm run build && npm run test",
+    "build": "tsc -p .",
+    "test": "npm i -g && ts-node gitchurn",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/figlet": "^1.2.0",
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "cli-color": "^1.4.0",
+    "clui": "^0.3.6",
+    "commander": "^2.20.0",
+    "figlet": "^1.2.3",
+    "file-system": "^2.2.2",
+    "path": "^0.12.7",
+    "recursive-readdir": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.8",
+    "nodemon": "^1.19.1",
+    "simple-git": "^1.122.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}
