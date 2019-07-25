@@ -2,7 +2,7 @@
 
 import simplegit from 'simple-git/promise';
 import { ListLogSummary } from 'simple-git/typings/response';
-const recursive = require("recursive-readdir");
+import recursive from "recursive-readdir";
 var clui = require('clui'), clc = require('cli-color'), Line = clui.Line;
 
 export function getStatsPerAuthor(filePath: string, callback: Function) {
@@ -19,7 +19,7 @@ export function getStatsPerAuthor(filePath: string, callback: Function) {
                         if (Array.from(authorStatList, x => x.AuthorName).every(x => log.author_name != x)) {
                             authorStatList.push(new AuthorStat(log.author_name, log.diff.deletions, log.diff.insertions));
                         } else {
-                            let objIndex = authorStatList.findIndex((s => s.AuthorName == log.author_name));
+                            let objIndex = authorStatList.findIndex(s => s.AuthorName == log.author_name);
                             authorStatList[objIndex].added += log.diff.insertions;
                             authorStatList[objIndex].deleted += log.diff.deletions;
                         }
@@ -42,9 +42,7 @@ export function getStatsPerFile(path: string, callback: Function) {
                 .then((res) => {
                     fileStatList.push(new FileStat(filePath, getSumInsertion(res), getSumDeletion(res)));
                 })
-                .catch((err) => {
-                    console.log(err);
-                })
+                .catch(err => console.log(err));
         }
         fileStatList.sort(
             (logA, logB) => { return logB.churn - logA.churn }
@@ -75,7 +73,7 @@ function getSumDeletion(logList: ListLogSummary) {
 
 class FileStat {
     filePath: string;
-    fileName: string | undefined;
+    fileName?: string;
     added: number;
     deleted: number;
     churn: number;

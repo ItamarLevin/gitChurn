@@ -7,8 +7,7 @@ import program from 'commander';
 import simplegit from 'simple-git/promise';
 import fs from "fs";
 import { getStatsPerFile, printToConsole, getStatsPerAuthor } from "./controller"
-
-var clui = require('clui');
+const clui = require('clui');
 
 runProgram()
 
@@ -34,14 +33,14 @@ async function runProgram() {
     if ((fs.existsSync(program.perFile)) && (await (simplegit(program.perFile).checkIsRepo()))) {
       getStatsPerFile(program.perFile, printToConsole)
     } else {
-      console.log("Path doesn't exists or not a git repository");
+      console.log("Path doesn't exist or not a git repository");
     }
   }
   else if (program.perAuthor) {
     if ((fs.existsSync(program.perAuthor)) && (await (simplegit(program.perAuthor).checkIsRepo()))) {
       getStatsPerAuthor(program.perAuthor, printToConsole)
     } else {
-      console.log("Path doesn't exists or not a git repository");
+      console.log("Path doesn't exist or not a git repository");
     }
   } else if (!process.argv.slice(2).length) {
     program.outputHelp();

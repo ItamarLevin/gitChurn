@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/figlet": "^1.2.0",
+    "@types/recursive-readdir": "^2.2.0",
     "chalk": "^2.4.2",
     "clear": "^0.1.0",
     "cli-color": "^1.4.0",
