@@ -1,7 +1,7 @@
 # gitChurn
 
 I used the following libraries:
-# simple-git - git api
+#simple-git - git api
 #commander - cli interface
 #figlet - FIGfont implimintation
 #chalk - cli colors for header
